@@ -12,6 +12,9 @@ import java.nio.file.WatchEvent.Modifier;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.nio.file.attribute.BasicFileAttributes;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,9 +22,6 @@ public class Java8WatchServiceExample {
 	
 	private final WatchService watcher;
 	private final Map<WatchKey, Path> dirWatchers;
-	private Object ENTRY_DELETE;
-	private Kind ENTRY_CREATE;
-	private Modifier ENTRY_MODIFY;
 
 	public Java8WatchServiceExample(Path dir) throws IOException {
 		super();
@@ -30,7 +30,7 @@ public class Java8WatchServiceExample {
 		scanRegisterDirectories(dir);
 	}
 
-	private void registerDirWatchers(Path dir) {
+	private void registerDirWatchers(Path dir) throws IOException {
 		
 		WatchKey key = dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
 		dirWatchers.put(key, dir);
