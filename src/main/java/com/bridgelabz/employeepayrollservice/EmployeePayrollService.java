@@ -8,7 +8,8 @@ public class EmployeePayrollService {
 
 	public List<EmployeePayrollData> employeePayrollList;
 
-	EmployeePayrollService() {
+	public EmployeePayrollService() {
+	
 	}
 
 	public EmployeePayrollService(List<EmployeePayrollData> employeePayrollList) {
@@ -55,6 +56,12 @@ public class EmployeePayrollService {
 			return new EmployeePayrollFileIOService().countEntries();
 		return 0;
 
+	}
+
+	public long readEmployeePayrollData(IOService IOService) {
+		if(IOService.equals(IOService.FILE_IO))
+			this.employeePayrollList=new EmployeePayrollFileIOService().readData();
+		return employeePayrollList.size();
 	}
 
 }
